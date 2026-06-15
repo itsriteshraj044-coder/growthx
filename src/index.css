@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-navy-950 font-sans text-slate-300 selection:bg-mint/30 selection:text-white;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-white;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #03101d;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #0b2c4f;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3cb98c;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-mint ring-offset-2 ring-offset-navy-950;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply border border-white/10 bg-white/[0.04] backdrop-blur-xl;
+  }
+
+  .glass-strong {
+    @apply border border-white/10 bg-navy-800/70 backdrop-blur-2xl;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-mint-300 via-mint to-emerald-500 bg-clip-text text-transparent;
+  }
+
+  .section-pad {
+    @apply px-4 py-24 sm:px-6 md:py-32 lg:px-10;
+  }
+
+  /* Full-width container — sections span the whole viewport with small side padding */
+  .container-x {
+    @apply mx-auto w-full;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-mint/30 bg-mint/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-mint;
+  }
+}
+
+@layer utilities {
+  .noise::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) {
+  .custom-cursor {
+    display: none !important;
+  }
+}
+
+/*
+ * Proportional scaling for large displays (1080p+, 2K, 4K, 32-inch monitors).
+ * All sizing is rem-based, so bumping the root font-size scales the entire
+ * UI — typography, spacing, cards — instead of stranding content in space.
+ */
+@media (min-width: 1920px) {
+  html {
+    font-size: 17px;
+  }
+}
+@media (min-width: 2240px) {
+  html {
+    font-size: 19px;
+  }
+}
+@media (min-width: 2560px) {
+  html {
+    font-size: 21px;
+  }
+}
+@media (min-width: 3200px) {
+  html {
+    font-size: 24px;
+  }
+}
+@media (min-width: 3840px) {
+  html {
+    font-size: 27px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
