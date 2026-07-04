@@ -1,7 +1,6 @@
 import { useLayoutEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
 import { ArrowRight, Check, Zap } from 'lucide-react';
-import { gsap, ScrollTrigger } from '../animations/gsap';
+import { gsap } from '../animations/gsap';
 import { revealUp } from '../animations/reveal';
 import { Seo } from '../components/common/Seo';
 import { RevealText } from '../components/ui/RevealText';
@@ -13,7 +12,6 @@ import { cn } from '../utils/cn';
 
 export default function Services() {
   const ref = useRef<HTMLDivElement>(null);
-  const { hash } = useLocation();
 
   useLayoutEffect(() => {
     const el = ref.current;
@@ -48,19 +46,6 @@ export default function Services() {
     }, el);
     return () => ctx.revert();
   }, []);
-
-  // Deep-link support: /services#shopify-development scrolls to that section.
-  useLayoutEffect(() => {
-    if (!hash) return;
-    const id = window.setTimeout(() => {
-      const target = document.getElementById(hash.slice(1));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        ScrollTrigger.refresh();
-      }
-    }, 450);
-    return () => window.clearTimeout(id);
-  }, [hash]);
 
   return (
     <div ref={ref}>

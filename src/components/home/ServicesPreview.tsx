@@ -31,7 +31,7 @@ export function ServicesPreview() {
   }, []);
 
   return (
-    <section ref={ref} className="section-pad relative" aria-label="Our services">
+    <section ref={ref} id="services" className="section-pad relative scroll-mt-24" aria-label="Our services">
       <div
         aria-hidden="true"
         className="absolute right-0 top-32 h-96 w-96 rounded-full bg-navy-500/10 blur-[120px]"

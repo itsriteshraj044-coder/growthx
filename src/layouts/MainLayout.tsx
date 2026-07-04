@@ -4,6 +4,7 @@ import { Footer } from '../components/layout/Footer';
 import { ScrollProgress } from '../components/common/ScrollProgress';
 import { CursorFollower } from '../components/common/CursorFollower';
 import { ScrollToTop } from '../components/common/ScrollToTop';
+import { WhatsAppButton } from '../components/common/WhatsAppButton';
 import { useLenis } from '../hooks/useLenis';
 
 /** Global chrome: smooth scrolling, cursor, progress bar, navbar and footer. */
@@ -24,6 +25,7 @@ export function MainLayout({ children }: { children: ReactNode }) {
       <Navbar />
       <main id="main-content">{children}</main>
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 }

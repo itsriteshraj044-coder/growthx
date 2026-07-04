@@ -32,7 +32,7 @@ export function Testimonials() {
   const t = TESTIMONIALS[index];
 
   return (
-    <section ref={ref} className="section-pad relative overflow-hidden bg-navy-900/40" aria-label="Client testimonials">
+    <section ref={ref} id="testimonials" className="section-pad relative overflow-hidden bg-navy-900/40 scroll-mt-24" aria-label="Client testimonials">
       <div
         aria-hidden="true"
         className="absolute right-0 top-0 h-80 w-80 rounded-full bg-mint/5 blur-[120px]"
@@ -46,7 +46,7 @@ export function Testimonials() {
 
         <div data-reveal className="relative mx-auto max-w-3xl">
           <Quote
-            className="absolute -top-6 left-0 h-16 w-16 text-mint/15"
+            className="absolute -top-6 left-0 z-10 h-16 w-16 text-mint/20"
             aria-hidden="true"
           />
           <div className="glass relative min-h-[280px] overflow-hidden rounded-3xl p-8 sm:min-h-[250px] sm:p-12">
