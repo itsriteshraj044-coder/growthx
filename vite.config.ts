@@ -2,6 +2,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
+  // Relative asset paths so the build works from the web root or a subfolder.
+  base: './',
   plugins: [react()],
   build: {
     target: 'es2020',
