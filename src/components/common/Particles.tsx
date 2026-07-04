@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 interface ParticlesProps {
   count?: number;
@@ -19,9 +20,11 @@ interface Particle {
 export function Particles({ count = 40, className = '' }: ParticlesProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reducedMotion = usePrefersReducedMotion();
+  const isMobile = useMediaQuery('(max-width: 767px)');
+  const disabled = reducedMotion || isMobile;
 
   useEffect(() => {
-    if (reducedMotion) return;
+    if (disabled) return;
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     if (!canvas || !ctx) return;
@@ -71,7 +74,9 @@ export function Particles({ count = 40, className = '' }: ParticlesProps) {
       cancelAnimationFrame(raf);
       observer.disconnect();
     };
-  }, [count, reducedMotion]);
+  }, [count, disabled]);
+
+  if (disabled) return null;
 
   return (
     <canvas
