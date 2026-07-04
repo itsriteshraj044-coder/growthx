@@ -101,7 +101,7 @@ export default function About() {
       </section>
 
       {/* Company story */}
-      <section data-story className="section-pad relative" aria-label="Our story">
+      <section data-story id="story" className="section-pad relative scroll-mt-24" aria-label="Our story">
         <div className="container-x grid items-center gap-14 lg:grid-cols-2">
           <div data-reveal-group>
             <span data-reveal className="eyebrow">Our Story</span>
@@ -149,7 +149,7 @@ export default function About() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="section-pad relative bg-navy-900/40" aria-label="Mission and vision">
+      <section id="mission" className="section-pad relative bg-navy-900/40 scroll-mt-24" aria-label="Mission and vision">
         <div className="container-x">
           <SectionHeading
             eyebrow="Purpose"
@@ -190,7 +190,7 @@ export default function About() {
       </section>
 
       {/* Why GrowthX */}
-      <section className="section-pad relative" aria-label="Why GrowthX Solution">
+      <section id="why-us" className="section-pad relative scroll-mt-24" aria-label="Why GrowthX Solution">
         <div className="container-x">
           <SectionHeading
             eyebrow="Why GrowthX Solution"
@@ -216,7 +216,7 @@ export default function About() {
       </section>
 
       {/* Animated timeline */}
-      <section data-timeline className="section-pad relative overflow-hidden bg-navy-900/40" aria-label="Our journey">
+      <section data-timeline id="journey" className="section-pad relative overflow-hidden bg-navy-900/40 scroll-mt-24" aria-label="Our journey">
         <div className="container-x">
           <SectionHeading eyebrow="Our Journey" title="From One Laptop to" highlight="100+ Launches" />
           <div className="relative mx-auto max-w-4xl">
@@ -255,7 +255,7 @@ export default function About() {
       </section>
 
       {/* Team values */}
-      <section className="section-pad relative" aria-label="Team values">
+      <section id="values" className="section-pad relative scroll-mt-24" aria-label="Team values">
         <div className="container-x">
           <SectionHeading
             eyebrow="Team Values"

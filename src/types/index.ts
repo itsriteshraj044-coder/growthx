@@ -64,4 +64,4 @@ export interface ContactFormData {
   message: string;
 }
 
-export type FormStatus = 'idle' | 'submitting' | 'success';
+export type FormStatus = 'idle' | 'submitting' | 'success' | 'error';

@@ -3,6 +3,15 @@ import Lenis from 'lenis';
 import { gsap, ScrollTrigger } from '../animations/gsap';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 
+// Shared instance so navigation/deep-link scrolling can drive Lenis directly
+// instead of fighting it with native scrollIntoView.
+let lenisInstance: Lenis | null = null;
+
+/** Returns the active Lenis instance, or null when smooth scrolling is off. */
+export function getLenis(): Lenis | null {
+  return lenisInstance;
+}
+
 /**
  * Initializes Lenis smooth scrolling and keeps GSAP ScrollTrigger in sync.
  * Disabled automatically when the user prefers reduced motion.
@@ -18,6 +27,7 @@ export function useLenis(): void {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
+    lenisInstance = lenis;
 
     lenis.on('scroll', ScrollTrigger.update);
 
@@ -28,6 +38,7 @@ export function useLenis(): void {
     return () => {
       gsap.ticker.remove(raf);
       lenis.destroy();
+      lenisInstance = null;
     };
   }, [reducedMotion]);
 }

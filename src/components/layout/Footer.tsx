@@ -12,13 +12,23 @@ import {
   ArrowUpRight,
 } from 'lucide-react';
 import { gsap } from '../../animations/gsap';
-import { NAV_ITEMS, SERVICES, CONTACT_INFO } from '../../utils/data';
+import { SERVICES, CONTACT_INFO } from '../../utils/data';
 
 const SOCIALS = [
   { label: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com' },
   { label: 'Instagram', icon: Instagram, href: 'https://instagram.com' },
   { label: 'Twitter', icon: Twitter, href: 'https://twitter.com' },
   { label: 'Facebook', icon: Facebook, href: 'https://facebook.com' },
+];
+
+// Each link points to a specific page and, where relevant, a section anchor.
+const QUICK_LINKS = [
+  { label: 'Home', to: '/' },
+  { label: 'About Us', to: '/about#story' },
+  { label: 'Our Journey', to: '/about#journey' },
+  { label: 'Why Choose Us', to: '/#why-choose-us' },
+  { label: 'Testimonials', to: '/#testimonials' },
+  { label: 'Contact Us', to: '/contact#contact-form' },
 ];
 
 export function Footer() {
@@ -84,10 +94,10 @@ export function Footer() {
           <nav data-footer-col aria-label="Quick links">
             <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-mint">Quick Links</h3>
             <ul className="mt-5 space-y-3">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.path}>
+              {QUICK_LINKS.map((item) => (
+                <li key={item.to}>
                   <Link
-                    to={item.path}
+                    to={item.to}
                     className="group inline-flex items-center gap-1 text-sm text-slate-400 transition-colors duration-200 hover:text-white"
                   >
                     {item.label}
@@ -104,7 +114,7 @@ export function Footer() {
           <nav data-footer-col aria-label="Services">
             <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-mint">Services</h3>
             <ul className="mt-5 space-y-3">
-              {SERVICES.slice(0, 6).map((s) => (
+              {SERVICES.map((s) => (
                 <li key={s.id}>
                   <Link
                     to={`/services#${s.id}`}
@@ -129,13 +139,23 @@ export function Footer() {
                   {CONTACT_INFO.email}
                 </a>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="h-4 w-4 shrink-0 text-mint" aria-hidden="true" />
-                {CONTACT_INFO.phone}
+              <li>
+                <a
+                  href={`tel:${CONTACT_INFO.phone.replace(/\s+/g, '')}`}
+                  className="flex items-center gap-3 transition-colors duration-200 hover:text-white"
+                >
+                  <Phone className="h-4 w-4 shrink-0 text-mint" aria-hidden="true" />
+                  {CONTACT_INFO.phone}
+                </a>
               </li>
-              <li className="flex items-center gap-3">
-                <MapPin className="h-4 w-4 shrink-0 text-mint" aria-hidden="true" />
-                {CONTACT_INFO.address}
+              <li>
+                <Link
+                  to="/contact#contact-form"
+                  className="flex items-center gap-3 transition-colors duration-200 hover:text-white"
+                >
+                  <MapPin className="h-4 w-4 shrink-0 text-mint" aria-hidden="true" />
+                  {CONTACT_INFO.address}
+                </Link>
               </li>
             </ul>
           </div>

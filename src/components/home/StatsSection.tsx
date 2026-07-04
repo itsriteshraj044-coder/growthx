@@ -30,7 +30,8 @@ export function StatsSection() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden border-y border-white/5 bg-gradient-to-b from-navy-900 to-navy-950"
+      id="results"
+      className="relative overflow-hidden border-y border-white/5 bg-gradient-to-b from-navy-900 to-navy-950 scroll-mt-24"
       aria-label="Our track record"
     >
       <div

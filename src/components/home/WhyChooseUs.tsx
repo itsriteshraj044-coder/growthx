@@ -28,7 +28,7 @@ export function WhyChooseUs() {
   }, []);
 
   return (
-    <section ref={ref} className="section-pad relative overflow-hidden" aria-label="Why choose us">
+    <section ref={ref} id="why-choose-us" className="section-pad relative overflow-hidden scroll-mt-24" aria-label="Why choose us">
       <div
         aria-hidden="true"
         className="absolute -left-40 top-1/2 h-[480px] w-[480px] -translate-y-1/2 rounded-full bg-mint/5 blur-[140px]"

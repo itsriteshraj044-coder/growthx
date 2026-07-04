@@ -34,9 +34,9 @@ export const NAV_ITEMS: NavItem[] = [
 ];
 
 export const CONTACT_INFO = {
-  email: 'info@growthxsolution.com',
-  phone: '+91 XXXXXXXXXX',
-  address: 'India',
+  email: 'info@growthxsolution.in',
+  phone: '+91 8651585034',
+  address: 'Aurangabad, Bihar',
 };
 
 export const TRUSTED_BRANDS = [

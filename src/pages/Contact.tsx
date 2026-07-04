@@ -8,6 +8,7 @@ import { Scene3D } from '../components/three/Scene3D';
 import { RevealText } from '../components/ui/RevealText';
 import { MagneticButton } from '../components/ui/MagneticButton';
 import { SERVICE_OPTIONS, CONTACT_INFO } from '../utils/data';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { cn } from '../utils/cn';
 import type { ContactFormData, FormStatus } from '../types';
 
@@ -68,8 +69,25 @@ export default function Contact() {
     if (Object.values(validation).some(Boolean)) return;
 
     setStatus('submitting');
-    // Simulated API call — swap for a real endpoint or email service in production.
-    await new Promise((resolve) => setTimeout(resolve, 1600));
+
+    if (!isSupabaseConfigured) {
+      setStatus('error');
+      return;
+    }
+
+    const { error } = await supabase.from('submissions').insert({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      phone: form.phone.trim() || null,
+      service: form.service,
+      message: form.message.trim(),
+    });
+
+    if (error) {
+      setStatus('error');
+      return;
+    }
+
     setStatus('success');
     setForm(EMPTY_FORM);
   };
@@ -112,7 +130,7 @@ export default function Contact() {
       </section>
 
       {/* Info cards + form */}
-      <section className="section-pad relative" aria-label="Contact form and information">
+      <section id="contact-form" className="section-pad relative scroll-mt-24" aria-label="Contact form and information">
         <div className="container-x">
           <div className="grid gap-10 lg:grid-cols-5">
             {/* Contact info */}
@@ -296,6 +314,13 @@ export default function Contact() {
                           {fieldError('message')}
                         </div>
                       </div>
+
+                      {status === 'error' && (
+                        <p role="alert" className="mt-6 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+                          Something went wrong while sending your message. Please try again or email us
+                          directly at {CONTACT_INFO.email}.
+                        </p>
+                      )}
 
                       <div className="mt-8">
                         <MagneticButton

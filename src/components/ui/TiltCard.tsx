@@ -50,7 +50,7 @@ export function TiltCard({ children, className, maxTilt = 8 }: TiltCardProps) {
   };
 
   return (
-    <div className="perspective-1000">
+    <div className="perspective-1000 h-full">
       <div
         ref={cardRef}
         onMouseMove={onMove}
