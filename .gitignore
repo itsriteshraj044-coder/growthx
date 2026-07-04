@@ -1,5 +1,8 @@
 node_modules
 
+# Deployment artifacts
+*.zip
+
 # Local env — never commit real Supabase keys
 .env
 .env.local
