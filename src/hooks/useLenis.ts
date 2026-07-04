@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Lenis from 'lenis';
 import { gsap, ScrollTrigger } from '../animations/gsap';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
+import { useMediaQuery } from './useMediaQuery';
 
 // Shared instance so navigation/deep-link scrolling can drive Lenis directly
 // instead of fighting it with native scrollIntoView.
@@ -18,9 +19,12 @@ export function getLenis(): Lenis | null {
  */
 export function useLenis(): void {
   const reducedMotion = usePrefersReducedMotion();
+  // On touch devices native scrolling is smoother and compositor-driven;
+  // Lenis' JS scroll loop just adds jank there.
+  const isTouch = useMediaQuery('(hover: none) and (pointer: coarse)');
 
   useEffect(() => {
-    if (reducedMotion) return;
+    if (reducedMotion || isTouch) return;
 
     const lenis = new Lenis({
       duration: 1.15,
@@ -40,5 +44,5 @@ export function useLenis(): void {
       lenis.destroy();
       lenisInstance = null;
     };
-  }, [reducedMotion]);
+  }, [reducedMotion, isTouch]);
 }

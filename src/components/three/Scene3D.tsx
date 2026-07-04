@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { cn } from '../../utils/cn';
 
 const HeroScene = lazy(() => import('./HeroScene'));
@@ -23,6 +24,10 @@ interface Scene3DProps {
  */
 export function Scene3D({ scene, className }: Scene3DProps) {
   const reducedMotion = usePrefersReducedMotion();
+  // WebGL is the heaviest thing on the page — skip it on phones and let the
+  // static gradient stand in. Tablets/desktops keep the full scene.
+  const isMobile = useMediaQuery('(max-width: 767px)');
+  const skip3D = reducedMotion || isMobile;
   const Scene = SCENES[scene];
 
   const fallback = (
@@ -34,7 +39,7 @@ export function Scene3D({ scene, className }: Scene3DProps) {
 
   return (
     <div className={cn('absolute inset-0 overflow-hidden', className)} aria-hidden="true">
-      {reducedMotion ? fallback : (
+      {skip3D ? fallback : (
         <Suspense fallback={fallback}>
           <Scene />
         </Suspense>
