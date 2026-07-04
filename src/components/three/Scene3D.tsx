@@ -16,18 +16,21 @@ const SCENES = {
 interface Scene3DProps {
   scene: keyof typeof SCENES;
   className?: string;
+  /** Render on phones too (used for the hero globe). Off by default so the
+   *  heavier background scenes stay disabled on mobile for performance. */
+  allowMobile?: boolean;
 }
 
 /**
  * Lazy-loaded, code-split Three.js scene host. Renders a static gradient
  * fallback while loading and skips WebGL entirely for reduced-motion users.
  */
-export function Scene3D({ scene, className }: Scene3DProps) {
+export function Scene3D({ scene, className, allowMobile = false }: Scene3DProps) {
   const reducedMotion = usePrefersReducedMotion();
-  // WebGL is the heaviest thing on the page — skip it on phones and let the
-  // static gradient stand in. Tablets/desktops keep the full scene.
+  // WebGL is the heaviest thing on the page — skip the background scenes on
+  // phones. The hero globe opts in via allowMobile (rendered in a lighter mode).
   const isMobile = useMediaQuery('(max-width: 767px)');
-  const skip3D = reducedMotion || isMobile;
+  const skip3D = reducedMotion || (isMobile && !allowMobile);
   const Scene = SCENES[scene];
 
   const fallback = (

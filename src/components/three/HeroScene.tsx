@@ -109,12 +109,15 @@ function ParticleHalo({ count = 1100 }: { count?: number }) {
 }
 
 /** Digital dot globe: lit navy core, dotted surface, atmosphere glow, rings and arcs. */
-function Globe() {
+function Globe({ mobile = false }: { mobile?: boolean }) {
   const parallax = useRef<THREE.Group>(null);
   const spinner = useRef<THREE.Group>(null);
   const ring = useRef<THREE.Mesh>(null);
 
-  const dots = useMemo(() => fibonacciSphere(2400, GLOBE_RADIUS * 1.01), []);
+  const dots = useMemo(
+    () => fibonacciSphere(mobile ? 1200 : 2400, GLOBE_RADIUS * 1.01),
+    [mobile],
+  );
 
   useFrame(({ pointer }, delta) => {
     if (parallax.current) {
@@ -161,7 +164,7 @@ function Globe() {
             <sphereGeometry args={[GLOBE_RADIUS * 1.002, 18, 12]} />
             <meshBasicMaterial color="#3CB98C" wireframe transparent opacity={0.08} />
           </mesh>
-          <ConnectionArcs />
+          <ConnectionArcs count={mobile ? 5 : 10} />
         </group>
 
         {/* Atmosphere glow */}
@@ -187,18 +190,23 @@ function Globe() {
           <meshBasicMaterial color="#1B5288" transparent opacity={0.4} />
         </mesh>
       </Float>
-      <ParticleHalo />
+      <ParticleHalo count={mobile ? 450 : 1100} />
     </group>
   );
 }
 
 /** Full hero canvas — rotating digital globe with particles and soft lighting. */
 export default function HeroScene() {
+  // Lighter render + pulled-back camera on phones so the globe stays smooth and
+  // fits inside the narrow viewport instead of getting clipped at the edges.
+  const mobile =
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
+
   return (
     <Canvas
-      dpr={[1, 1.5]}
-      camera={{ position: [0, 0, 6.5], fov: 42 }}
-      gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+      dpr={mobile ? [1, 1] : [1, 1.5]}
+      camera={{ position: [0, 0, mobile ? 10 : 6.5], fov: 42 }}
+      gl={{ antialias: !mobile, alpha: true, powerPreference: 'high-performance' }}
       style={{ pointerEvents: 'none' }}
       eventSource={document.body}
       eventPrefix="client"
@@ -207,7 +215,7 @@ export default function HeroScene() {
       <directionalLight position={[4, 6, 5]} intensity={1.4} color="#dceeff" />
       <pointLight position={[-5, -3, -4]} intensity={16} color="#3CB98C" />
       <pointLight position={[5, 2, 3]} intensity={12} color="#1B5288" />
-      <Globe />
+      <Globe mobile={mobile} />
     </Canvas>
   );
 }
