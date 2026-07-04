@@ -37,8 +37,8 @@ export function Hero() {
     >
       {/* Ambient gradient + 3D sphere + particles */}
       <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,#08213C_0%,#020910_55%)]" />
-      <div aria-hidden="true" className="absolute left-1/2 top-1/3 h-[520px] w-[520px] -translate-x-1/2 animate-pulse-glow rounded-full bg-mint/10 blur-[140px]" />
-      <Scene3D scene="hero" className="opacity-90" />
+      <div aria-hidden="true" className="absolute left-1/2 top-1/3 h-[520px] w-[520px] -translate-x-1/2 animate-pulse-glow rounded-full bg-mint/10 blur-[80px] sm:blur-[140px]" />
+      <Scene3D scene="hero" className="opacity-90" allowMobile />
       <Particles count={34} />
 
       <div data-hero-content className="container-x relative z-10 px-4 pb-24 pt-36 sm:px-6 lg:px-10">
